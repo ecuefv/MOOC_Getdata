@@ -6,7 +6,7 @@ data_train_y = read.table('./UCI HAR Dataset/train/y_train.txt', header = F)
 # test set
 data_test_x = read.table('./UCI HAR Dataset/test/X_test.txt', header = F)
 data_test_y = read.table('./UCI HAR Dataset/test/y_test.txt', header = F)
-########################################################################################################
+################################################################
 # 1.Merges the training and the test sets to create one data set.
 # merge dataset
 ds_x = rbind(data_train_x,data_test_x)
@@ -15,20 +15,20 @@ ds_y = rbind(data_train_y,data_test_y)
 feature_lines = readLines('./UCI HAR Dataset/features.txt')
 feature_names = unlist(strsplit(feature_lines,' '))[seq(2,2*length(feature_lines),2)]
 names(ds_x)= feature_names
-########################################################################################################
+################################################################
 # 2.Extracts only the measurements on the mean and standard deviation for each measurement. 
 # extracts by regex, wherever include 'mean' or 'std'
 ds_x_extracts = ds_x[grep("mean|std", names(ds_x))]
-########################################################################################################
+################################################################
 # 3.Uses descriptive activity names to name the activities in the data set
 # 1-WALKING, 2-WALIKING_UPSTAIRS, 3-WALKING_DOWNSTAIRS, 4-SITTING, 5-STANDING, 6-LAYING
 names(ds_y) = 'label'
 ds_y[ds_y==1]='WALKING'; ds_y[ds_y==2]='WALKING_UPSTAIRS'; ds_y[ds_y==3]='WALKING_DOWNSTAIRS'; 
 ds_y[ds_y==4]='SITTING'; ds_y[ds_y==5]='STANDING'; ds_y[ds_y==6]='LAYING';
-########################################################################################################
+################################################################
 # 4.Appropriately labels the data set with descriptive variable names
 # just do it in step1, name each variable by it's in features.txt
-########################################################################################################
+################################################################
 # 5.Creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 # match each subject with their activities' records
 subject_train = read.csv('./UCI HAR Dataset/train/subject_train.txt', header=F);
